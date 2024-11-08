@@ -1,0 +1,54 @@
+/* index.css */
+
+/* 인덱스 페이지의 콘텐츠 스타일 */
+.index-container {
+    text-align: center;
+    padding: 50px 20px;
+}
+
+.index-container h1 {
+    font-size: 2.5em;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.button {
+    background-color: #00d4ff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1.2em;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.button:hover {
+    background-color: #008C99;
+}
+
+/* 추가적인 스타일 */
+.notice-board {
+    margin-top: 30px;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 10px;
+}
+
+.notice-item {
+    background-color: #f4f4f4;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.notice-item h3 {
+    font-size: 1.6em;
+    margin-bottom: 10px;
+}
+
+.notice-item p {
+    font-size: 1.1em;
+    color: #555;
+}

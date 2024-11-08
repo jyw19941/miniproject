@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+<figure>
+    <video src="/video/main_visual_video.mp4" autoplay muted loop></video>
+</figure>
+
+<!-- 헤더 영역 -->
+<header>
+    <div class="logo">My Website</div>
+    <nav>
+        <ul>
+            <li><a href="/index">공지사항</a></li>
+            <li><a href="/user-sale">찾아보기</a></li>  <!-- 수정된 부분 -->
+            <li><a href="/enrollment">판매하기</a></li>
+            <li><a href="/">홈으로</a></li>
+        </ul>
+    </nav>
+
+
+    <div class="login-status">
+        <!-- 로그인된 상태에서 username을 출력 -->
+        <span th:if="${username != null}">Welcome, <span th:text="${username}"></span>!</span>
+
+        <!-- 로그인된 경우 로그아웃 버튼 표시 -->
+        <button class="logout-button" th:if="${username != null}" onclick="window.location.href='/logout'">Logout</button>
+
+        <!-- 로그인되지 않은 경우 로그인 버튼 표시 -->
+        <button class="login-button" th:if="${username == null}" onclick="window.location.href='/login'">Login</button>
+    </div>
+</header>
+</body>
+</html>

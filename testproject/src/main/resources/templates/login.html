@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Login</title>
+    <style>
+        /* 기본 스타일 설정 */
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .login-container {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .input-field:focus {
+            border-color: #00d4ff;
+            outline: none;
+        }
+
+        .login-button {
+            background-color: #00d4ff;
+            color: white;
+            border: none;
+            padding: 10px;
+            font-size: 1em;
+            border-radius: 5px;
+            width: 100%;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .login-button:hover {
+            background-color: #008C99;
+        }
+
+        .signup-button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px;
+            font-size: 1em;
+            border-radius: 5px;
+            width: 100%;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 10px;
+        }
+
+        .signup-button:hover {
+            background-color: #45a049;
+        }
+
+        .error-message {
+            color: red;
+            font-size: 0.9em;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="login-container">
+    <h1>Login</h1>
+
+    <!-- 로그인 오류 메시지 (서버에서 전달된 오류 메시지 출력) -->
+    <div class="error-message" th:if="${errorMessage != null}" th:text="${errorMessage}"></div>
+
+    <form action="/login" method="POST">
+        <input type="email" name="email" class="input-field" placeholder="Email" required><br>
+        <input type="password" name="password" class="input-field" placeholder="Password" required><br>
+        <button type="submit" class="login-button">Login</button>
+    </form>
+
+    <!-- 회원가입 버튼 추가 -->
+    <a href="/signup">
+        <button type="button" class="signup-button">Sign Up</button>
+    </a>
+</div>
+
+</body>
+</html>

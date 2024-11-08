@@ -1,0 +1,115 @@
+/* 헤더 스타일링 */
+header {
+    position: fixed; /* header를 고정시켜서 화면 상단에 유지 */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 80px; /* 헤더의 고정된 높이 */
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.5); /* 배경 반투명 */
+    color: white;
+    z-index: 1000; /* 다른 요소들 위에 표시되도록 */
+    display: flex;
+    justify-content: space-between; /* 로고 왼쪽, 네비게이션 중앙, 로그인 오른쪽 */
+    align-items: center;
+    box-sizing: border-box; /* padding을 크기 내에 포함 */
+}
+
+/* 로고 스타일 */
+.logo {
+    font-size: 2em;
+    font-weight: bold;
+}
+
+/* 네비게이션 링크 스타일 */
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center; /* 네비게이션 메뉴를 중앙 정렬 */
+    width: 100%; /* 네비게이션 바가 화면의 전체 너비를 차지하도록 */
+}
+
+nav ul li {
+    margin: 0 15px; /* 메뉴 항목 간의 간격 */
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: white;
+    font-size: 1.2em;
+    transition: color 0.3s;
+}
+
+nav ul li a:hover {
+    color: #00d4ff;
+}
+
+/* 로그인 버튼 스타일 */
+.login-button {
+    background-color: #00d4ff;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.logout-button {
+    background-color: #ff4c4c;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.user-info {
+    margin-right: 20px;
+    font-size: 1.1em;
+    color: #333;
+}
+
+
+.login-button:hover {
+    background-color: #008C99;
+}
+
+/* 메인 콘텐츠에 padding-top 추가 (헤더 높이에 맞춰 여백 설정) */
+main {
+    padding-top: 100px; /* 헤더 높이에 맞는 여백 */
+    padding-bottom: 60px; /* 푸터 높이에 맞는 여백 (푸터가 고정되므로 내용이 푸터 아래로 내려가지 않도록) */
+}
+/* 푸터 고정 위치 스타일 */
+footer {
+    position: fixed; /* 화면 하단에 고정 */
+    bottom: 0; /* 화면 하단에 위치 */
+    left: 0; /* 화면의 왼쪽 끝 */
+    width: 100%; /* 화면 전체 너비 */
+    background-color: #333; /* 배경색 */
+    color: white; /* 글자 색 */
+    padding: 20px 0; /* 상하 여백 */
+    text-align: center; /* 텍스트 가운데 정렬 */
+    z-index: 1000; /* 다른 요소 위에 표시되도록 */
+}
+
+/* 푸터 내 내비게이션 링크 스타일 */
+footer nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+footer nav ul li {
+    display: inline; /* 링크들을 가로로 정렬 */
+    margin: 0 10px;
+}
+
+footer nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+
