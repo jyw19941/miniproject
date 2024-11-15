@@ -1,6 +1,7 @@
 package edu.du.testproject.spring;
 
 
+import edu.du.testproject.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
@@ -10,6 +11,7 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
@@ -18,12 +20,12 @@ public class UserDAO {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    public UserDTO selectByEmail(String email) {
-        List<UserDTO> results = jdbcTemplate.query("select * from users where email = ?",
-                new RowMapper<UserDTO>() {
+    public User selectByEmail(String email) {
+        List<User> results = jdbcTemplate.query("select * from users where email = ?",
+                new RowMapper<User>() {
             @Override
-                    public UserDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
-                UserDTO user = new UserDTO(
+                    public User mapRow(ResultSet rs, int rowNum) throws SQLException {
+                User user = new User(
                         rs.getString("USERNAME"),
                         rs.getString("EMAIL"),
                         rs.getString("PASSWORD"),
@@ -36,7 +38,11 @@ public class UserDAO {
     }
 
 
-    public void insert(UserDTO user) {
+    public void insert(User user) {
+        if (user.getRegdate() == null) {
+            user.setRegdate(LocalDateTime.now()); // null일 경우 현재 시간 설정
+        }
+
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(new PreparedStatementCreator() {
             @Override
@@ -47,11 +53,13 @@ public class UserDAO {
                 pstmt.setString(1, user.getUsername());
                 pstmt.setString(2, user.getEmail());
                 pstmt.setString(3, user.getPassword());
-                pstmt.setTimestamp(4, Timestamp.valueOf(user.getRegdate()));
+                pstmt.setTimestamp(4, Timestamp.valueOf(user.getRegdate())); // null 처리 후 Timestamp 설정
                 return pstmt;
             }
-        },keyHolder);
-        Number keyVaule = keyHolder.getKey();
-        user.setId(keyVaule.intValue());
+        }, keyHolder);
+
+        Number keyValue = keyHolder.getKey();
+        user.setId(keyValue.intValue());
     }
+
 }

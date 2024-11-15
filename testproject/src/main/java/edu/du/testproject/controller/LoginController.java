@@ -1,7 +1,7 @@
 package edu.du.testproject.controller;
 
+import edu.du.testproject.entity.User;
 import edu.du.testproject.spring.UserDAO;
-import edu.du.testproject.spring.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,7 +29,7 @@ public class LoginController {
                         @RequestParam("password") String password,
                         Model model) {
         // DB에서 사용자 정보 가져오기
-        UserDTO user = userDAO.selectByEmail(email);
+        User user = userDAO.selectByEmail(email);
 
         // 사용자가 존재하지 않거나 비밀번호가 일치하지 않으면 오류 메시지 반환
         if (user == null || !user.getPassword().equals(password)) {

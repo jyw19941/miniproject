@@ -36,14 +36,7 @@ public class MainController {
         return "index";
     }
 
-    // 다른 페이지들
-    @GetMapping("/user-sale")
-    public String sale(@SessionAttribute(value = "username", required = false) String username, Model model) {
-        if (username != null) {
-            model.addAttribute("username", username);  // 세션에서 username을 모델에 추가
-        }
-        return "sale";  // "sale" 뷰 반환
-    }
+
 
     @GetMapping("/enrollment")
     public String enrollment(@SessionAttribute(value = "username", required = false) String username, Model model) {

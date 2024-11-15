@@ -1,34 +1,26 @@
-//package edu.du.testproject.service;
-//
-//import edu.du.testproject.spring.UserDTO;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.stereotype.Service;
-//
-//@Service
-//public class UserService {
-//
-//    @Autowired
-//    private UserRepository userRepository;
-//
-//    @Autowired
-//    private BCryptPasswordEncoder passwordEncoder;
-//
-//    public boolean registerUser(UserDTO userDTO) {
-//        if (!userDTO.isPasswordMatching()) {
-//            throw new IllegalArgumentException("Passwords do not match");
-//        }
-//
-//        // 비밀번호 암호화
-//        String encodedPassword = passwordEncoder.encode(userDTO.getPassword());
-//
-//        // UserDTO -> User 엔티티로 변환
-//        UserDTO user = new UserDTO();
-//        user.setUsername(userDTO.getUsername());
-//        user.setEmail(userDTO.getEmail());
-//        user.setPassword(encodedPassword);
-//
-//        // 유저 저장
-//        userRepository.save(user);
-//        return true;
-//    }
-//}
+package edu.du.testproject.service;
+
+import edu.du.testproject.entity.User;
+import edu.du.testproject.respository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+public class UserService {
+
+    private final UserRepository userRepository;
+
+    @Autowired
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
+    public User registerUser(String username, String email, String password) {
+        User user = new User();
+        user.setUsername(username);
+        user.setEmail(email);
+        user.setPassword(password);
+
+        return userRepository.save(user);  // save 메서드 호출로 DB에 insert
+    }
+}

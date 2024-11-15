@@ -1,5 +1,6 @@
 package edu.du.testproject.spring;
 
+import edu.du.testproject.entity.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -14,22 +15,28 @@ public class ProductDAO {
     private JdbcTemplate jdbcTemplate;
 
     // 상품 추가
-    public void insertProduct(ProductDTO product) {
+    public void insertProduct(Product product) {
         String sql = "INSERT INTO products (product_name, product_price, product_description, product_image) VALUES (?, ?, ?, ?)";
         jdbcTemplate.update(sql, product.getProductName(), product.getProductPrice(), product.getProductDescription(), product.getProductImage());
     }
 
     // 모든 상품 조회
-    public List<ProductDTO> selectAllProducts() {
+    public List<Product> selectAllProducts() {
         String sql = "SELECT * FROM products";
-        List<ProductDTO> products = jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(ProductDTO.class));
+        List<Product> products = jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Product.class));
 
         // 데이터가 잘 조회되는지 로그 출력
         System.out.println("Retrieved products: " + products.size());
-        for (ProductDTO product : products) {
+        for (Product product : products) {
             System.out.println("Product: " + product.getProductName() + ", Price: " + product.getProductPrice());
         }
 
         return products;
     }
+
+    public Product getProductById(int id) {
+        String sql = "SELECT * FROM products WHERE id = ?";
+        return jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(Product.class), id);
+    }
+
 }

@@ -1,7 +1,7 @@
 package edu.du.testproject.controller;
 
+import edu.du.testproject.entity.User;
 import edu.du.testproject.spring.UserDAO;
-import edu.du.testproject.spring.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,12 +19,12 @@ public class SignUpController {
 
     @GetMapping
     public String showSignupForm(Model model) {
-        model.addAttribute("user", new UserDTO()); // 빈 DTO 객체를 모델에 추가
+        model.addAttribute("user", new User()); // 빈 DTO 객체를 모델에 추가
         return "signup";
     }
 
     @PostMapping
-    public String signup(@ModelAttribute("user") UserDTO user, Model model) {
+    public String signup(@ModelAttribute("user") User user, Model model) {
         if (userDAO.selectByEmail(user.getEmail()) != null) {
             model.addAttribute("error", "Email is already in use.");
             return "signup";

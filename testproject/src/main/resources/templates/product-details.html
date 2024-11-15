@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details</title>
+    <link rel="stylesheet" th:href="@{/css/product-details.css}">
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+</head>
+<body>
+<div th:replace="~{main :: header}"></div>
+
+<div th:replace="~{main :: header}"></div>
+
+<main>
+    <section class="product-details">
+        <img th:src="@{{image}(image=${product.productImage})}" alt="Product Image" />
+
+        <!-- 구분선 -->
+        <div class="divider"></div>
+
+        <div class="details">
+            <p class="noto-sans-kr-purchase-price">즉시 구매가</p>
+            <p class="price" th:text="${product.productPrice} + '원'"></p>
+            <p class="class-name" th:text="${product.productName}"></p>
+            <p class="product-explanation">옷 설명</p>
+            <p class="description" th:text="${product.productDescription}"></p>
+            <select id="anton-regular" name="사이즈 선택">
+                <option selected disabled>사이즈 선택</option>
+                <option value="Small">S</option>
+                <option value="Middle">M</option>
+                <option value="Large">L</option>
+                <option value="X-Large">XL</option>
+            </select>
+         <br><br><br><br>
+            <button th:onclick="'/add-to-cart/' + ${product.id}" class="buy-button">구매 하기</button><br>
+            <!-- 관심 상품 등록 버튼 -->
+            <br><br>
+            <button th:onclick="'/add-interest/' + ${product.id}" class="interest-button">관심 상품 등록</button>
+
+
+        </div>
+    </section>
+</main>
+
+<div th:replace="~{sale :: footer}"></div>
+
+</body>
+</html>

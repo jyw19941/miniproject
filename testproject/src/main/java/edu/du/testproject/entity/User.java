@@ -1,29 +1,29 @@
-package edu.du.testproject.spring;
+package edu.du.testproject.entity;
 
-
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.time.LocalDateTime;
 
-public class UserDTO {
+@Entity
+public class User {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     private String username;
     private String email;
     private String password;
-    private LocalDateTime regdate = LocalDateTime.now();
+    private LocalDateTime regdate;
 
-    // 기본 생성자
-    public UserDTO() {
+
+    public User() {
+        this.regdate = LocalDateTime.now(); // 기본값 설정
     }
+    // Getters and setters
 
-    // 모든 필드를 포함한 생성자
-    public UserDTO(String username, String email, String password, LocalDateTime regdate) {
-        this.username = username;
-        this.email = email;
-        this.password = password;
-        this.regdate = regdate;
-    }
-
-    // Getter와 Setter
     public int getId() {
         return id;
     }
@@ -62,5 +62,12 @@ public class UserDTO {
 
     public void setRegdate(LocalDateTime regdate) {
         this.regdate = regdate;
+    }
+
+    public User(String username, String email, String password, LocalDateTime regdate) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.regdate = regdate != null ? regdate : LocalDateTime.now(); // null일 경우 기본값 설정
     }
 }

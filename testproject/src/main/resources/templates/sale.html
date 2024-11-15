@@ -14,16 +14,20 @@
 <!-- 메인 콘텐츠 -->
 <main>
     <section class="product-list">
-        <h2>Featured Products</h2>
+        <h2>판매 상품</h2>
         <div class="products">
             <div th:if="${#lists.isEmpty(products)}">
                 <p>No products available.</p>
             </div>
             <div th:each="product : ${products}" class="product-card">
-                <img th:src="@{${product.productImage}}" alt="Product" />
-                <h3 th:text="${product.productName}"></h3>
+                <!-- 이미지 태그를 업데이트 -->
+                <a th:href="@{'/product/' + ${product.id}}">
+                    <img th:src="@{{image}(image=${product.productImage})}" alt="Product" />
+                    <h3 th:text="${product.productName}"></h3>
+                </a>
                 <p th:text="${product.productPrice} + ' $'"></p>
                 <button class="add-to-cart">Add to Cart</button>
+
             </div>
         </div>
     </section>
