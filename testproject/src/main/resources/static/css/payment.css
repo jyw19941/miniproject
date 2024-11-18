@@ -1,0 +1,112 @@
+/* payment.css */
+
+/* 기본적인 폰트 및 전체 스타일 */
+body {
+    font-family: 'Noto Sans KR', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+/* 헤더 및 푸터 */
+header, footer {
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+}
+
+/* 메인 결제 정보 */
+main {
+    padding: 40px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* 결제 섹션 */
+.payment-details {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.payment-details h2 {
+    font-family: 'Anton', sans-serif;
+    text-align: center;
+    color: #333;
+}
+
+/* 결제 정보 섹션 */
+.payment-info, .address-info, .contact-info, .order-summary {
+    margin-bottom: 20px;
+}
+
+.payment-info label,
+.address-info label,
+.contact-info label,
+.order-summary p {
+    font-size: 16px;
+    margin-bottom: 8px;
+}
+
+/* 결제 방법 드롭다운 */
+select, input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin-top: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+/* 결제 버튼 스타일 */
+.payment-button {
+    background-color: #007BFF;
+    color: white;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.3s ease;
+}
+
+.payment-button:hover {
+    background-color: #0056b3;
+}
+
+/* 주문 요약 */
+.order-summary {
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    padding: 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.order-summary p {
+    font-size: 14px;
+    margin: 5px 0;
+}
+
+/* 레이블과 입력란 간격 */
+input[type="text"], select {
+    margin-bottom: 15px;
+}
+
+/* 반응형 디자인: 화면 크기가 작아질 때 */
+@media screen and (max-width: 768px) {
+    .payment-details {
+        padding: 20px;
+    }
+
+    .payment-button {
+        padding: 12px;
+        font-size: 14px;
+    }
+}

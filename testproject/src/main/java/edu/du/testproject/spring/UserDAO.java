@@ -21,7 +21,7 @@ public class UserDAO {
     private JdbcTemplate jdbcTemplate;
 
     public User selectByEmail(String email) {
-        List<User> results = jdbcTemplate.query("select * from users where email = ?",
+        List<User> results = jdbcTemplate.query("select * from user where email = ?",
                 new RowMapper<User>() {
             @Override
                     public User mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -48,7 +48,7 @@ public class UserDAO {
             @Override
             public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
                 PreparedStatement pstmt = con.prepareStatement(
-                        "insert into USERS (USERNAME,EMAIL,PASSWORD,REGDATE) VALUES (?, ?, ?, ?)",
+                        "insert into USER (USERNAME,EMAIL,PASSWORD,REGDATE) VALUES (?, ?, ?, ?)",
                         new String[] { "ID"});
                 pstmt.setString(1, user.getUsername());
                 pstmt.setString(2, user.getEmail());

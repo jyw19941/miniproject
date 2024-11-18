@@ -5,10 +5,7 @@ import edu.du.testproject.spring.ProductDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -53,7 +50,7 @@ public class ProductController {
 
         Product product = new Product();
         product.setProductName(productName);
-        product.setProductPrice(BigDecimal.valueOf(productPrice));
+        product.setProductPrice((int)productPrice);
         product.setProductDescription(productDescription);
         product.setProductImage("/uploads/" + productImage.getOriginalFilename());
 
@@ -63,8 +60,11 @@ public class ProductController {
     }
 
     @GetMapping("/sale")
-    public String showSalePage(Model model) {
+    public String showSalePage(@SessionAttribute(value = "username", required = false) String username, Model model) {
         model.addAttribute("products", productDAO.selectAllProducts());
+        if (username != null){
+            model.addAttribute("username",username);
+        }
         return "sale";
     }
     @GetMapping("/product/{id}")

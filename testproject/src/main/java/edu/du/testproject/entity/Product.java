@@ -4,7 +4,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
@@ -15,7 +14,7 @@ public class Product {
     private int id;
 
     private String productName;
-    private BigDecimal productPrice;
+    private int productPrice;
     private String productDescription;
     private String productImage;
     private LocalDateTime createdAt;
@@ -38,11 +37,11 @@ public class Product {
         this.productName = productName;
     }
 
-    public BigDecimal getProductPrice() {
+    public int getProductPrice() {
         return productPrice;
     }
 
-    public void setProductPrice(BigDecimal productPrice) {
+    public void setProductPrice(int productPrice) {
         this.productPrice = productPrice;
     }
 

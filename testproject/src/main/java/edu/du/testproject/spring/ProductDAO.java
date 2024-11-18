@@ -16,13 +16,13 @@ public class ProductDAO {
 
     // 상품 추가
     public void insertProduct(Product product) {
-        String sql = "INSERT INTO products (product_name, product_price, product_description, product_image) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO product(product_name, product_price, product_description, product_image) VALUES (?, ?, ?, ?)";
         jdbcTemplate.update(sql, product.getProductName(), product.getProductPrice(), product.getProductDescription(), product.getProductImage());
     }
 
     // 모든 상품 조회
     public List<Product> selectAllProducts() {
-        String sql = "SELECT * FROM products";
+        String sql = "SELECT * FROM product";
         List<Product> products = jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Product.class));
 
         // 데이터가 잘 조회되는지 로그 출력
@@ -35,8 +35,20 @@ public class ProductDAO {
     }
 
     public Product getProductById(int id) {
-        String sql = "SELECT * FROM products WHERE id = ?";
+        String sql = "SELECT * FROM product WHERE id = ?";
         return jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(Product.class), id);
+    }
+
+    public Product getProductByName(String name) {
+        String sql = "SELECT product_name FROM product WHERE id = ?";
+        List<Product> products = jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Product.class), name);
+
+        for (Product product : products) {
+            System.out.println("Product: " + product.getProductName() + ", Price: " + product.getProductPrice());
+
+        }
+        return products.get(0);
+
     }
 
 }

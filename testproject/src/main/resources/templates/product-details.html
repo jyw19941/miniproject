@@ -36,8 +36,8 @@
                 <option value="Large">L</option>
                 <option value="X-Large">XL</option>
             </select>
-         <br><br><br><br>
-            <button th:onclick="'/add-to-cart/' + ${product.id}" class="buy-button">구매 하기</button><br>
+            <br><br><br><br>
+            <a th:href="@{'/payment/' + ${product.id}}" class="btn">결제하기</a>
             <!-- 관심 상품 등록 버튼 -->
             <br><br>
             <button th:onclick="'/add-interest/' + ${product.id}" class="interest-button">관심 상품 등록</button>
