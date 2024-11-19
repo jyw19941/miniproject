@@ -20,7 +20,6 @@ public class MainController {
 
     @GetMapping("/main")
     public String mainpage(@SessionAttribute(value = "username", required = false) String username, Model model) {
-        // 로그인된 상태인지 확인
         if (username != null) {
             model.addAttribute("username", username);  // 세션에서 username을 모델에 추가
         }

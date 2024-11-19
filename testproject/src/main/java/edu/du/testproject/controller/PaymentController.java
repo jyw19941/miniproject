@@ -23,7 +23,7 @@ public class PaymentController {
         Optional<Product> product = productService.getProductById(productId);
 
         if (product.isEmpty()) {
-            return "error/404";  // 404.html 페이지로 이동
+            return "error";  //
         }
 
         model.addAttribute("product", product.get());
