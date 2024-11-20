@@ -7,14 +7,12 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 
 @Controller
+@SessionAttributes("username")
 public class LoginController {
 
     @Autowired
@@ -24,7 +22,10 @@ public class LoginController {
     private PasswordEncoder passwordEncoder;
 
 
-
+    @GetMapping("/loginpage")
+    public String loginForm() {
+        return "login";  // 로그인 페이지로 이동
+    }
 
     @PostMapping("/login")
     public String login(@RequestParam String email, @RequestParam String password, HttpSession session, Model model) {
@@ -42,17 +43,8 @@ public class LoginController {
     @GetMapping("/logout")
     public String logout(HttpSession session) {
         session.invalidate();  // 세션 무효화
-        return "redirect:/main";  // 홈 페이지로 리다이렉트
+        return "redirect:/";  // 홈 페이지로 리다이렉트
     }
 
-    @GetMapping("/login")
-    public String loginForm() {
-        return "login";  // 로그인 페이지로 이동
-    }
 
-    @RequestMapping("/login")
-    public String loginSuccess(HttpSession session, @RequestParam String email) {
-        session.setAttribute("username", email);  // email을 username으로 설정
-        return "redirect:/main";  // /main으로 리다이렉트
-    }
 }

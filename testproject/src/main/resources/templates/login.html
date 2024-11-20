@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="ko" xmlns:th="http//www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -88,11 +88,9 @@
 <div class="login-container">
     <h1>Login</h1>
 
-    <!-- 로그인 오류 메시지 (서버에서 전달된 오류 메시지 출력) -->
-    <div class="error-message" th:if="${errorMessage != null}" th:text="${errorMessage}"></div>
 
-    <form action="/login" method="POST">
-        <input type="email" name="email" class="input-field" placeholder="Email" required>
+    <form  th:action="@{/loginpage}" method="POST">
+        <input type="email" name="username" class="input-field" placeholder="Email" required>
         <input type="password" name="password" class="input-field" placeholder="Password" required>
         <button type="submit" class="login-button">Login</button>
     </form>

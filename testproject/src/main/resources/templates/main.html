@@ -33,7 +33,7 @@
         <button class="logout-button" th:if="${username != null}" onclick="window.location.href='/logout'">Logout</button>
 
         <!-- 로그인되지 않은 경우 로그인 버튼 표시 -->
-        <button class="login-button" th:if="${username == null}" onclick="window.location.href='/login'">Login</button>
+        <button class="login-button" th:if="${username == null}" onclick="window.location.href='/loginpage'">Login</button>
     </div>
 </header>
 </body>

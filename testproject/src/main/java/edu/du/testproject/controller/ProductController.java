@@ -3,6 +3,8 @@ package edu.du.testproject.controller;
 import edu.du.testproject.entity.Product;
 import edu.du.testproject.spring.ProductDAO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -60,10 +62,10 @@ public class ProductController {
     }
 
     @GetMapping("/sale")
-    public String showSalePage(@SessionAttribute(value = "username", required = false) String username, Model model) {
+    public String showSalePage(@AuthenticationPrincipal UserDetails userDetails, Model model) {
         model.addAttribute("products", productDAO.selectAllProducts());
-        if (username != null){
-            model.addAttribute("username",username);
+        if (userDetails != null){
+            model.addAttribute("username",userDetails.getUsername());
         }
         return "sale";
     }

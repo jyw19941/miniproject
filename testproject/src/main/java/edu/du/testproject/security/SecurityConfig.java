@@ -1,44 +1,54 @@
 package edu.du.testproject.security;
 
+import lombok.extern.log4j.Log4j2;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
-@EnableWebSecurity
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
+//@EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
+@Log4j2
+public class SecurityConfig {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();  // BCrypt 암호화 방식 사용
     }
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        log.info("---------filterChain-------------");
         http
                 .authorizeRequests()
-                .antMatchers("/enrollment").authenticated()  // 로그인, 회원가입 페이지는 누구나 접근 가능
-                .anyRequest().permitAll()  // 그 외에는 인증된 사용자만 접근 가능
-                .and()
+                .antMatchers("/","/css/**","/image/**","/video/**","/js/**").permitAll()
+                .antMatchers("/signup").permitAll()
+                .anyRequest().authenticated();
+        http.csrf().disable();
+        http
                 .formLogin()
-                .loginPage("/login")  // 커스텀 로그인 페이지
-                .loginProcessingUrl("/login")  // 로그인 폼 제출 URL
-                .defaultSuccessUrl("/main", true)  // 로그인 성공 후 리다이렉트될 페이지
-                .failureUrl("/login?error=true")  // 로그인 실패 후 리다이렉트될 페이지
-                .permitAll()  // 로그인 페이지는 누구나 접근 가능
+                .loginPage("/loginpage")
+                .defaultSuccessUrl("/main",true)
+                .permitAll()
                 .and()
                 .logout()
-                .logoutUrl("/logout")  // 로그아웃 URL
-                .logoutSuccessUrl("/");  // 로그아웃 후 리다이렉트될 페이지
-    }
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/")
+                .invalidateHttpSession(true)
+                .deleteCookies("JSESSIONID")
+                .permitAll();
 
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService()).passwordEncoder(passwordEncoder());  // UserDetailsService와 PasswordEncoder 설정
+        http.csrf().ignoringAntMatchers("/h2-console/**")
+                .and()
+                .headers().frameOptions().sameOrigin();
+
+        return http.build();
     }
 }

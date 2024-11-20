@@ -8,6 +8,8 @@ import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;
@@ -43,17 +45,27 @@ public class UserDAO {
             user.setRegdate(LocalDateTime.now()); // null일 경우 현재 시간 설정
         }
 
+        // 기본값 설정: role이 null인 경우 'user'로 설정
+        if (user.getRole() == null) {
+            user.setRole("user"); // 기본값 'user' 설정
+        }
+
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String encodedPassword = passwordEncoder.encode(user.getPassword());
+        user.setPassword(encodedPassword);
+
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(new PreparedStatementCreator() {
             @Override
             public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
                 PreparedStatement pstmt = con.prepareStatement(
-                        "insert into USER (USERNAME,EMAIL,PASSWORD,REGDATE) VALUES (?, ?, ?, ?)",
-                        new String[] { "ID"});
+                        "INSERT INTO USER (USERNAME, EMAIL, PASSWORD, REGDATE, ROLE) VALUES (?, ?, ?, ?, ?)",
+                        new String[] { "ID" }); // role 컬럼 추가
                 pstmt.setString(1, user.getUsername());
                 pstmt.setString(2, user.getEmail());
                 pstmt.setString(3, user.getPassword());
                 pstmt.setTimestamp(4, Timestamp.valueOf(user.getRegdate())); // null 처리 후 Timestamp 설정
+                pstmt.setString(5, user.getRole()); // role 값 삽입
                 return pstmt;
             }
         }, keyHolder);
