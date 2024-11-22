@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Purchase Success</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+<!-- 헤더 포함 -->
+<div th:replace="~{main :: header}"></div>
+
+<main class="purchase-success-container">
+    <section class="success-message">
+        <h1>구매가 완료되었습니다!</h1>
+        <p>주문 번호: <strong th:text="${orderId}"></strong></p>
+        <p>구매해주셔서 감사합니다. 주문 내역은 이메일로 발송되었습니다.</p>
+        <p>상품이 빠른 시일 내에 배송되도록 준비하겠습니다.</p>
+    </section>
+
+    <div class="actions">
+        <a href="/user-sale" class="btn btn-primary">계속 쇼핑하기</a>
+        <a href="/orders" class="btn btn-secondary">주문 내역 보기</a>
+    </div>
+</main>
+
+<!-- 푸터 포함 -->
+<div th:replace="~{sale :: footer}"></div>
+</body>
+</html>

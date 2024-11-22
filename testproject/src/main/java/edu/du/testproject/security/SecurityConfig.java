@@ -26,11 +26,11 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         log.info("---------filterChain-------------");
-        http
+        http.csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/","/css/**","/image/**","/video/**","/js/**").permitAll()
-                .antMatchers("/signup").permitAll()
-                .anyRequest().authenticated();
+                .antMatchers("/enrollment","/sale").authenticated()
+                        .anyRequest().permitAll();
         http.csrf().disable();
         http
                 .formLogin()
@@ -49,6 +49,9 @@ public class SecurityConfig {
                 .and()
                 .headers().frameOptions().sameOrigin();
 
+
         return http.build();
+
     }
+
 }

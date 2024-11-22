@@ -16,6 +16,7 @@ import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.UUID;
 
 @Controller
 public class ProductController {
@@ -23,17 +24,7 @@ public class ProductController {
     @Autowired
     ProductDAO productDAO;
 
-//    @Autowired
-//    private HttpServletRequest request;
 
-//    @GetMapping("/product-enroll")
-//    public String showProductEnrollPage() {
-//        // 세션에서 로그인 여부 확인
-//        if (request.getSession().getAttribute("username") == null) {
-//            return "redirect:/login?error"; // 로그인되지 않으면 로그인 페이지로 리다이렉트
-//        }
-//        return "product-enroll"; // 로그인 된 경우 상품 등록 페이지로 이동
-//    }
 
     @PostMapping("/submit-product")
     public String submitProduct(@RequestParam("productName") String productName,
@@ -70,9 +61,13 @@ public class ProductController {
         return "sale";
     }
     @GetMapping("/product/{id}")
-    public String getProductDetails(@PathVariable("id") int id, Model model) {
+    public String getProductDetails(@PathVariable("id") int id, Model model ,@AuthenticationPrincipal UserDetails userDetails ) {
         Product product = productDAO.getProductById(id);
         model.addAttribute("product", product);
+
+        if(userDetails != null){
+            model.addAttribute("username",userDetails.getUsername());
+        }
         return "product-details";
     }
 
