@@ -18,7 +18,8 @@
     <section class="payment-details">
         <h2>결제 정보 입력</h2>
 
-        <form action="/process-payment" method="post">
+<!--        <form th:action="@{/process-payment(${_csrf.parameterName}=${_csrf.token})}" method="post">-->
+            <form th:action="@{/process-payment}" method="post">
             <!-- 결제 정보 입력 -->
             <div class="payment-info">
                 <label for="payment-method">결제 방법</label>
@@ -38,11 +39,26 @@
                 <label for="contact">연락처</label>
                 <input type="text" id="contact" name="contact" placeholder="연락처를 입력하세요" required />
             </div>
+            <!-- 숨겨진 필드로 productId 추가 -->
+            <input type="hidden" name="productId" th:value="${product != null ? product.id : ''}" />
+            <input type="hidden" name="userId" th:value="${user !=null ? user.id: ''}" />
+
+            <!-- 사이즈 선택 필드 추가 -->
+            <div class="size-info">
+                <label for="size">사이즈 선택</label>
+                <select id="size" name="size" required>
+                    <option value="S">S</option>
+                    <option value="M">M</option>
+                    <option value="L">L</option>
+                    <option value="XL">XL</option>
+                    <!-- 필요에 따라 다른 사이즈 추가 -->
+                </select>
+            </div>
 
             <div class="order-summary">
                 <p th:text="${product != null ? product.productName : '상품명 없음'}"></p>
                 <p th:text="${product != null ? product.productPrice : '가격 없음'}"></p>
-                <p>배송비: 무료</p>
+
             </div>
 
             <button type="submit" class="payment-button">결제하기</button>

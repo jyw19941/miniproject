@@ -67,6 +67,7 @@ public class ProductController {
 
         if(userDetails != null){
             model.addAttribute("username",userDetails.getUsername());
+
         }
         return "product-details";
     }

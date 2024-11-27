@@ -16,7 +16,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private long id;
 
     @Column
     private String username;
@@ -41,4 +41,5 @@ public class User {
         this.password = password;
         this.regdate = regdate != null ? regdate : LocalDateTime.now(); // null일 경우 기본값 설정
     }
+
 }

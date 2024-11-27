@@ -49,7 +49,7 @@
 }
 
 /* select 태그 스타일링 */
-#anton-regular {
+#size-selector {
     width: 250px; /* 원하는 너비로 설정 */
     padding: 5px; /* 내부 여백 추가 */
     border-radius: 8px; /* 모서리 둥글게 */

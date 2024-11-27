@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
+
 import java.time.LocalDateTime;
 
 @Getter
@@ -18,18 +18,28 @@ public class Order {
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-    private User user;  // 사용자 정보
+    private User user;
 
     @ManyToOne
     @JoinColumn(name = "product_id", nullable = false)
-    private Product product;  // 상품 정보
+    private Product product;
 
-    private int quantity;  // 구매 수량
-
-    @Column(name = "total_price", nullable = false)
-    private BigDecimal totalPrice;  // 총 가격
+    @Column(name = "size", nullable = false)
+    private String size;
 
     @Column(name = "order_date", nullable = false, updatable = false)
-    private LocalDateTime orderDate;  // 주문 날짜
+    private LocalDateTime orderDate;
+
+    @Column(name = "payment_status", nullable = false)
+    private String paymentStatus;
+
+    @Column(name = "payment_method", nullable = false)
+    private String paymentMethod;
+
+    @Column(name = "transaction_id")
+    private String transactionId;
+
+    @Column(name = "payment_date")
+    private LocalDateTime paymentDate;
 
 }

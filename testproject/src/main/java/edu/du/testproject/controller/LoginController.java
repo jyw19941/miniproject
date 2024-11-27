@@ -21,6 +21,11 @@ public class LoginController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @GetMapping("/login")
+        public String login(){
+        return "login";
+    }
+
 
     @GetMapping("/loginpage")
     public String loginForm() {
@@ -30,9 +35,15 @@ public class LoginController {
     @PostMapping("/login")
     public String login(@RequestParam String email, @RequestParam String password, HttpSession session, Model model) {
         User user = userDAO.selectByEmail(email);
-
+        System.out.println("유저 아이디:" + user.getId());
         if (user != null && passwordEncoder.matches(password, user.getPassword())) {
+            System.out.println("유저 아이디:" + user.getId());
             session.setAttribute("username", user.getUsername());  // 세션에 username 저장
+            session.setAttribute("id", user.getId());
+            session.setAttribute("user", user);
+            model.addAttribute("username", user.getUsername());
+            model.addAttribute("id", user.getId());
+
             return "redirect:/main";  // 로그인 성공 후 /main 페이지로 리다이렉트
         } else {
             model.addAttribute("error", "Invalid email or password");

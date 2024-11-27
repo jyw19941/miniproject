@@ -11,7 +11,8 @@ import java.util.Optional;
 @Service
 public class ProductService {
 
-    private final ProductRepository productRepository;
+   @Autowired
+   private ProductRepository productRepository;
 
     @Autowired
     public ProductService(ProductRepository productRepository) {
@@ -31,23 +32,23 @@ public class ProductService {
     // ID로 특정 제품 조회
     public Optional<Product> getProductById(int id) {
         return productRepository.findById(id);
+        }
     }
 
-    // 제품 업데이트
-    public Product updateProduct(int id, Product updatedProduct) {
-        return productRepository.findById(id)
-                .map(product -> {
-                    product.setProductName(updatedProduct.getProductName());
-                    product.setProductPrice(updatedProduct.getProductPrice());
-                    product.setProductDescription(updatedProduct.getProductDescription());
-                    product.setProductImage(updatedProduct.getProductImage());
-                    return productRepository.save(product);
-                })
-                .orElseThrow(() -> new RuntimeException("Product not found"));
-    }
-
-    // 제품 삭제
-    public void deleteProduct(int id) {
-        productRepository.deleteById(id);
-    }
-}
+//    // 제품 업데이트
+//    public Product updateProduct(int id, Product updatedProduct) {
+//        return productRepository.findById(id)
+//                .map(product -> {
+//                    product.setProductName(updatedProduct.getProductName());
+//                    product.setProductPrice(updatedProduct.getProductPrice());
+//                    product.setProductDescription(updatedProduct.getProductDescription());
+//                    product.setProductImage(updatedProduct.getProductImage());
+//                    return productRepository.save(product);
+//                })
+//                .orElseThrow(() -> new RuntimeException("Product not found"));
+//    }
+//
+//    // 제품 삭제
+//    public void deleteProduct(int id) {
+//        productRepository.deleteById(id);
+//    }
