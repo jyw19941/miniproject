@@ -69,6 +69,6 @@ public class OrderController {
         orderService.saveOrder(order);
 
         model.addAttribute("order", order);
-        return "Purchase-success"; // 주문 요약 페이지로 이동
+        return "redirect:Purchase-success"; // 주문 요약 페이지로 이동
     }
 }

@@ -41,14 +41,7 @@ public class MainController {
         return "main";  // 메인 페이지 반환
     }
 
-    // 로그인 페이지
-    @GetMapping("/index")
-    public String index(@AuthenticationPrincipal UserDetails userDetails, Model model) {
-        if (userDetails != null) {
-            model.addAttribute("username", userDetails.getUsername());  // 세션에서 username을 모델에 추가
-        }
-        return "index";
-    }
+
 
 
 

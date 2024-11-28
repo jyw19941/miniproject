@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Order History</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/view-order.css">
+</head>
+<body>
+    <div th:replace="~{main :: header}"></div>
+<h1>My Orders</h1>
+<table>
+    <thead>
+    <tr>
+        <th>Product</th>
+        <th>Size</th>
+        <th>Order Date</th>
+        <th>Status</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="order : ${orders}">
+        <td>
+<!--            <img th:src="@{/uploads/} + ${order.product.productImage}" alt="Product Image">-->
+            <span th:text="${order.product != null ? order.product.productName : 'No product name'}"></span>
+        </td>
+        <td th:text="${order.size}"></td>
+        <td th:text="${order.orderDate != null ? #dates.format(order.orderDate, 'yyyy-MM-dd HH:mm') : 'No date'}"></td>
+        <td th:text="${order.paymentStatus != null ? order.paymentStatus : 'No status'}"></td>
+
+    </tr>
+    </tbody>
+</table>
+    <input type="hidden" name="user" th:value="${user !=null ? user.id: ''}" />
+    <div th:replace="~{sale :: footer}"></div>
+</body>
+</html>

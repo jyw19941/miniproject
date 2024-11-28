@@ -1,0 +1,46 @@
+body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 80px;
+    color: #333;
+
+}
+table {
+    width: 90%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    background: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+thead {
+    background-color: #4CAF50;
+    color: white;
+}
+
+th, td {
+    text-align: left;
+    padding: 12px 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    font-weight: bold;
+}
+
+td img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+tbody tr:last-child td {
+    border-bottom: none;
+}

@@ -14,10 +14,10 @@
 
 <!-- 헤더 영역 -->
 <header>
-    <div class="logo">My Website</div>
+    <div class="logo">Make #</div>
     <nav>
         <ul>
-            <li><a href="/index">공지사항</a></li>
+            <li><a href="/view-order">구매상품</a></li>
             <li><a href="/sale">찾아보기</a></li>  <!-- 수정된 부분 -->
             <li><a href="/enrollment">판매하기</a></li>
             <li><a href="/">홈으로</a></li>
@@ -27,7 +27,7 @@
 
     <div class="login-status">
         <!-- 로그인된 상태에서 username을 출력 -->
-        <span th:if="${username != null}">Welcome, <span th:text="${username}"></span>!</span>
+        <span th:if="${username != null}">Welcome, <span th:text="${username}"></span> 님!</span>
 
         <!-- 로그인된 경우 로그아웃 버튼 표시 -->
         <button class="logout-button" th:if="${username != null}" onclick="window.location.href='/logout'">Logout</button>
