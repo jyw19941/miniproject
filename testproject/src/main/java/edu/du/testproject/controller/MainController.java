@@ -27,12 +27,14 @@ public class MainController {
     @GetMapping("/main")
     public String mainpage(@AuthenticationPrincipal UserDetails userDetails, Model model, HttpSession session) {
          User user = (User) session.getAttribute("user");
+        edu.du.testproject.entity.User user1 = new edu.du.testproject.entity.User();
+        session.setAttribute("userId",user1.getId());
          session.setAttribute("user", user);
 //        public String mainpage(@SessionAttribute(value = "username", required = false) String username, Model model) {
         if (userDetails != null) {
             session.setAttribute("username", userDetails.getUsername());
             session.setAttribute("user",user);
-
+            session.setAttribute("userId",user1.getId());
 
             model.addAttribute("username", userDetails.getUsername());  // 세션에서 username을 모델에 추가
         }else {

@@ -44,6 +44,7 @@ public class LoginController {
             model.addAttribute("username", user.getUsername());
             model.addAttribute("id", user.getId());
 
+
             return "redirect:/main";  // 로그인 성공 후 /main 페이지로 리다이렉트
         } else {
             model.addAttribute("error", "Invalid email or password");

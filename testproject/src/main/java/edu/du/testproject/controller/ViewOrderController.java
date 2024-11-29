@@ -23,30 +23,39 @@ public class ViewOrderController {
     @GetMapping("/view-order")
     public String showviewOrder(@AuthenticationPrincipal UserDetails userDetails, Model model, HttpSession session) {
 
+        // 세션에서 userId를 가져옵니다.
+        Long userId = (Long) session.getAttribute("userId");
 
-
-        User user = (User) session.getAttribute("user");
-        if (user == null) {
-            user = new User();
-            session.setAttribute("user", user);
-
-            // 필요한 경우 user 객체를 DB에서 조회하여 정보 추가
+        if (userId == null) {
+            // 만약 userId가 세션에 없다면 로그인된 사용자가 없거나 세션이 만료된 경우
+            System.out.println("유저 아이디없음");
+            return "redirect:/login"; // 로그인 페이지로 리다이렉트합니다.
         }
-        session.getAttribute("user");
+
+        // userId를 기준으로 User 객체를 DB에서 조회합니다.
+        User user1 = (User) orderRepository.findByUserId(userId);
+
+        if (user1 == null) {
+            // userId가 유효하지 않으면 새 User 객체를 생성하여 세션에 저장하고, view-order 페이지로 리다이렉트합니다.
+            user1 = new User();
+            session.setAttribute("userId", user1.getId());
+            return "redirect:/view-order";
+        }
+
         System.out.println("==========================");
-        List<Order> orders = orderRepository.findByUserId((int) user.getId());
-        System.out.println("유저 ID받아오기 : " + user.getId());
 
+        // 주문 목록을 userId를 기준으로 조회합니다.
+        List<Order> orders = orderRepository.findByUserId(userId.intValue());
+        System.out.println("유저 ID받아오기 : " + user1.getId());
 
-        if(userDetails != null) {
-            session.setAttribute("user", user);
+        if (userDetails != null) {
+            // 로그인된 사용자 정보와 username을 세션에 저장합니다.
+            session.setAttribute("user", user1);
             session.setAttribute("username", userDetails.getUsername());
-
-
-            model.addAttribute("username", userDetails.getUsername());
         }
 
-
+        // 모델에 사용자 이름과 주문 목록을 추가합니다.
+        model.addAttribute("username", userDetails.getUsername());
         model.addAttribute("orders", orders);
 
         return "view-order";
