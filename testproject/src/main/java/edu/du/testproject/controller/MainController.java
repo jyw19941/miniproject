@@ -26,7 +26,8 @@ public class MainController {
 
     @GetMapping("/main")
     public String mainpage(@AuthenticationPrincipal UserDetails userDetails, Model model, HttpSession session) {
-         User user = (User) session.getAttribute("user");
+         User user = (User) session.getAttribute("id");
+
         edu.du.testproject.entity.User user1 = new edu.du.testproject.entity.User();
         session.setAttribute("userId",user1.getId());
          session.setAttribute("user", user);

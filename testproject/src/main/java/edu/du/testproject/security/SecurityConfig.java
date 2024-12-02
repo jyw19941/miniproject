@@ -29,7 +29,7 @@ public class SecurityConfig {
         http.csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/","/css/**","/image/**","/video/**","/js/**").permitAll()
-                .antMatchers("/enrollment","/sale").authenticated()
+                .antMatchers("/enrollment","/sale","view-order").authenticated()
                         .anyRequest().permitAll();
         http.csrf().disable();
         http

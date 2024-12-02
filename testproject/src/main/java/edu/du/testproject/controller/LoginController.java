@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpSession;
 
 @Controller
-@SessionAttributes("username")
 public class LoginController {
 
     @Autowired
@@ -52,11 +51,7 @@ public class LoginController {
         }
     }
 
-    @GetMapping("/logout")
-    public String logout(HttpSession session) {
-        session.invalidate();  // 세션 무효화
-        return "redirect:/";  // 홈 페이지로 리다이렉트
-    }
+
 
 
 }
